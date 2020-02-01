@@ -1,0 +1,17 @@
+{% extends 'base_template.html' %}
+
+{% block extraCSS %}
+    <style>
+        a {
+            color: dodgerblue;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div>
+        <h1>{{ post.question }}</h1>
+        {{ post.pub_date }}
+        <p>{{ post.formatted_markdown|safe }}</p>
+    </div>
+{% endblock %}
