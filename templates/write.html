@@ -1,0 +1,55 @@
+{% extends 'base_template.html' %}
+
+{% block extraCSS %}
+    <style>
+        a {
+            color: dodgerblue;
+        }
+        textarea {
+            width: 100%;
+            height: 100%;
+            resize: none;
+            box-sizing: border-box;
+            border: none;
+            overflow: hidden;
+            outline: none;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+            font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: medium;
+        }
+        #submitButton {
+            position: fixed;
+            bottom: 5%;
+            right: 3%;
+            width: 60px;
+            height: 35px;
+            z-index: 99;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid black;
+            background-color: white;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    {% csrf_token %}
+    <br>
+    <br>
+    <label>
+        <textarea style="font-size: x-large"
+                  id="questionText"
+                  placeholder="Title..."
+                  oninput="auto_grow(this)"
+                  form="mainForm"></textarea>
+    </label>
+    <label>
+        <textarea placeholder="Write something here..."
+                  id="answerText"
+                  oninput="auto_grow(this)"
+                  form="mainForm"></textarea></label>
+    <div id="submitButton" onclick="submitForm()">Submit</div>
+{% endblock %}

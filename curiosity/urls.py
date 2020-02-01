@@ -15,12 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.conf.urls import url, include
+from django.conf.urls import url
 from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^markdownx/', include('markdownx.urls')),
-    url(r'^$', views.wall, name='homepage'),
+    url(r'^$', views.wall, name='wall'),
     url(r'^post/(?P<pk>[\w-]+)/$', views.post),
+    url(r'^write$', views.write),
 ]

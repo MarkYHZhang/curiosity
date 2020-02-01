@@ -5,6 +5,9 @@
         a {
             color: dodgerblue;
         }
+        p {
+            font-size: medium;
+        }
     </style>
 {% endblock %}
 
@@ -12,6 +15,6 @@
     <div>
         <h1>{{ post.question }}</h1>
         {{ post.pub_date }}
-        <p>{{ post.formatted_markdown|safe }}</p>
+        <p>{{ post.formatted_answer|safe }}</p>
     </div>
 {% endblock %}
