@@ -1,0 +1,21 @@
+{% extends 'base_template.html' %}
+
+{% block extraCSS %}
+    <style>
+        a {
+            color: black;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    {% for post in posts %}
+        <a href="/post/{{ post.pk }}">
+            <div>
+                <h1>{{ post.question }}</h1>
+                <p style="text-align:right">{{ post.pub_date }}</p>
+            </div>
+        </a>
+        <hr>
+    {% endfor %}
+{% endblock %}

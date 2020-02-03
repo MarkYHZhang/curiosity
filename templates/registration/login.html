@@ -1,0 +1,21 @@
+{% extends 'base_template.html' %}
+
+{% block content %}
+    <div style="text-align: center">
+        {% if form.errors %}
+            <p>Incorrect Credentials</p>
+        {% endif %}
+
+        {% if next %}
+            <p>Please login before access.</p>
+        {% endif %}
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+
+            <p>Username: {{ form.username }}</p>
+            <p>Password: {{ form.password }}</p>
+
+            <input style="font-size: medium" type="submit" value="Login">
+        </form>
+    </div>
+{% endblock %}
