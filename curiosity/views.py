@@ -21,16 +21,15 @@ def write(request):
     if request.method == "POST":
         content = json.loads(request.body)
         if "pk" in content:
-            pk = content["pk"]
-            p = Post.objects.get(pk=pk)
-            p.question = content["question"]
-            p.answer = content["answer"]
-            p.save()
+            Post.objects.filter(pk=content["pk"]).update(
+                question=content["question"],
+                answer=content["answer"]
+            )
         else:
-            from datetime import datetime
-            from pytz import timezone
-            tz = timezone('EST')
-            Post.objects.create(question=content["question"], answer=content["answer"], pub_date=datetime.now(tz))
+            Post.objects.create(
+                question=content["question"],
+                answer=content["answer"]
+            )
         return redirect("/")
     elif "pk" in request.GET:
         pk = request.GET["pk"]
