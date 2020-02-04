@@ -19,19 +19,50 @@ function getCookie(name) {
     return cookieValue;
 }
 
-function submitForm(){
-    let question = document.getElementById("questionText").value
-    let answer = document.getElementById("answerText").value
+function sendPOST(path, dataDict, onResponseCallback){
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "write", true);
-    var csrftoken = getCookie('csrftoken');
+    xhr.open("POST", path, true);
+    let csrftoken = getCookie('csrftoken');
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.setRequestHeader("X-CSRFToken", csrftoken);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            window.location.replace("/");
+            onResponseCallback()
         }
     };
-    let data = JSON.stringify({"question": question, "answer": answer});
+    let data = JSON.stringify(dataDict);
     xhr.send(data);
+}
+
+function submitForm(pk=null){
+    let question = document.getElementById("questionText").value;
+    let answer = document.getElementById("answerText").value;
+    let request = {
+        "question": question,
+        "answer": answer,
+    };
+    if (pk != null){
+        request["pk"] = pk
+    }
+    let callbackFunction = function () {
+        window.location.replace("/");
+    };
+    sendPOST("write", request, callbackFunction)
+
+}
+
+function deletePost(postPk){
+    let request = {"operation":"delete", "pk": postPk};
+    let callbackFunction = function () {
+        window.location.replace("/manage");
+    };
+    sendPOST("manage", request, callbackFunction)
+}
+
+function editPost(postPk){
+    let request = {"operation":"edit", "pk": postPk};
+    let callbackFunction = function () {
+        window.location.replace("/write?pk="+postPk);
+    };
+    sendPOST("manage", request, callbackFunction)
 }

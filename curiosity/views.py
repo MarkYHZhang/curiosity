@@ -20,12 +20,21 @@ def post(request, pk):
 def write(request):
     if request.method == "POST":
         content = json.loads(request.body)
-        from datetime import datetime
-        from pytz import timezone
-        tz = timezone('EST')
-        Post.objects.create(question=content["question"], answer=content["answer"], pub_date=datetime.now(tz))
-        print(datetime.now(tz))
+        if "pk" in content:
+            pk = content["pk"]
+            p = Post.objects.get(pk=pk)
+            p.question = content["question"]
+            p.answer = content["answer"]
+            p.save()
+        else:
+            from datetime import datetime
+            from pytz import timezone
+            tz = timezone('EST')
+            Post.objects.create(question=content["question"], answer=content["answer"], pub_date=datetime.now(tz))
         return redirect("/")
+    elif "pk" in request.GET:
+        pk = request.GET["pk"]
+        return render(request, 'write.html', {"post": Post.objects.get(pk=pk)})
     else:
         return render(request, 'write.html')
 
@@ -34,11 +43,14 @@ def write(request):
 def manage(request):
     if request.method == "POST":
         content = json.loads(request.body)
-        from datetime import datetime
-        from pytz import timezone
-        tz = timezone('EST')
-        Post.objects.create(question=content["question"], answer=content["answer"], pub_date=datetime.now(tz))
-        print(datetime.now(tz))
-        return redirect("/")
+        operation = content["operation"]
+        pk = content["pk"]
+        if operation == "edit":
+            return redirect("/write?pk="+str(pk))
+        elif operation == "delete":
+            Post.objects.get(pk=pk).delete()
+            return redirect("/manage")
     else:
-        return render(request, 'write.html')
+        return render(request, 'manage.html', {
+            "posts": Post.objects.order_by('-pub_date')
+        })

@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^$', views.wall, name='wall'),
     url(r'^post/(?P<pk>[\w-]+)/$', views.post),
     url(r'^write$', views.write),
+    url(r'^manage$', views.manage),
 ]

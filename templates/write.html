@@ -44,12 +44,13 @@
                   id="questionText"
                   placeholder="Title..."
                   oninput="auto_grow(this)"
-                  form="mainForm"></textarea>
+                  form="mainForm">{% if post %}{{ post.question }}{% endif %}</textarea>
     </label>
     <label>
         <textarea placeholder="Write something here..."
                   id="answerText"
                   oninput="auto_grow(this)"
-                  form="mainForm"></textarea></label>
-    <div id="submitButton" onclick="submitForm()">Submit</div>
+                  form="mainForm">{% if post %}{{ post.answer }}{% endif %}</textarea>
+    </label>
+    <div id="submitButton" onclick="submitForm({% if post %}{{ post.pk }}{% endif %})">Submit</div>
 {% endblock %}
