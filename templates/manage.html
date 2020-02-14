@@ -23,6 +23,10 @@
 
 {% block content %}
     {% csrf_token %}
+    <div>
+        <h1 style="text-align: center">Management Dashboard</h1>
+        <hr>
+    </div>
     {% for post in posts %}
         <h2>{{ post.question }}</h2>
         <div style="overflow: hidden;">

@@ -9,10 +9,14 @@
 {% endblock %}
 
 {% block content %}
+    <div>
+        <h1 style="text-align: center">One Question a Day</h1>
+        <hr>
+    </div>
     {% for post in posts %}
         <a href="/post/{{ post.pk }}">
             <div>
-                <h1>{{ post.question }}</h1>
+                <h2>{{ post.question }}</h2>
                 <p>{{ post.peek|striptags }} ... read more</p>
                 <p style="text-align:right">{{ post.pub_date }}</p>
             </div>
