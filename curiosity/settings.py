@@ -25,7 +25,11 @@ SECRET_KEY = '(_io(53p!cedh0i%)dr&e-pndwzk)f$i)68g8aaitt815^ag8o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'curiosity.markzhang.io',
+    '127.0.0.1',
+    'localhost',
+]
 
 
 # Application definition
